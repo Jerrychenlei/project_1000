@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>注册</title>
+	<link rel="stylesheet" href="./css/login.css">
+</head>
+
+<body>
+	<div class="lowin">
+		<div class="lowin-brand">
+			<img src="./img/kodinger.jpg" alt="logo">
+		</div>
+		<div class="lowin-wrapper">
+			<div class="lowin-box lowin-register">
+				<div class="lowin-box-inner">
+					<form id="AccountText">
+						<p>创建账号</p>
+						<div class="lowin-group">
+							<label>用户名</label>
+							<input type="text" name="username" autocomplete="name" class="lowin-input">
+						</div>
+						<div class="lowin-group">
+							<label>邮箱</label>
+							<input type="email" autocomplete="email" name="email" class="lowin-input">
+						</div>
+						<div class="lowin-group">
+							<label>密码</label>
+							<input type="password" name="password" id="passwords" autocomplete="current-password"
+								class="lowin-input">
+						</div>
+						<div class="lowin-group">
+							<label>确认密码</label>
+							<input type="password" name="repassword" id="repasswords" autocomplete="current-password"
+								class="lowin-input">
+						</div>
+						<button type="button" class="lowin-btn" id="setRegister">
+							注册
+						</button>
+
+						<div class="text-foot">
+							已经有账号? <a href="" class="login-link">登录</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<footer class="lowin-footer">
+
+		</footer>
+	</div>
+	<script src="./lib/jquery.min.js"></script>
+	<script src="./lib/template-web.js"></script>
+
+	<script>
+		// 入口函数
+		$(() => {
+			// 绑定注册按钮点击事件
+			$('#setRegister').on('click', addAccount);
+		})
+		// 会员注册功能--事件函数----
+		function addAccount() {
+			// 获取form表单中带有name属性的文本值
+			let strAccount = $('#AccountText').serialize();
+			console.log(strAccount);
+			// 判断两次密码是否一致
+			// if ($('#passwords').val === $('#repasswords').val) {
+			// 发送ajax请求
+			$.ajax({
+				method: 'POST',
+				url: 'http://www.shop.com/api/member/register',
+				data: strAccount,
+				success(res) {
+					if (res.code == 2000) {
+						alert(res.msg)
+						location.href = './login.html';
+					}
+					else {
+						return alert(res.msg);
+					}
+				}
+			})
+			// }
+			// else {
+			// 	return alert('两次密码输入不一致,请重新输入')
+			// }
+		}
+	</script>
+</body>
+
+</html>
